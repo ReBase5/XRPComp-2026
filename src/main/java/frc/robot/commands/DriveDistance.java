@@ -20,9 +20,9 @@ public class DriveDistance extends Command {
    * @param inches The number of inches the robot will drive
    * @param drive The drivetrain subsystem on which this command will run
    */
-  public DriveDistance(double speed, double inches, XRPDrivetrain drive) {
+  public DriveDistance(double inches, XRPDrivetrain drive) {
     m_distance = inches;
-    m_speed = speed;
+    m_speed = 1.5;
     m_drive = drive;
     addRequirements(drive);
   }
