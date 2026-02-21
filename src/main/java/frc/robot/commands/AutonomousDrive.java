@@ -16,9 +16,6 @@ public class AutonomousDrive extends SequentialCommandGroup {
    */
   public AutonomousDrive(XRPDrivetrain drivetrain) {
     addCommands(
-        new DriveDistance(0.5, 10, drivetrain),
-        new TankTurnDegrees(0.5, 90, drivetrain),
-        new DriveDistance(0.5, 10, drivetrain),
-        new PushTurnRightDegrees(0.5, 90, drivetrain));
+      new PushTurnLeftDegrees(1, 90, drivetrain));
   }
 }

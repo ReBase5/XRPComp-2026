@@ -7,9 +7,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.xrp.XRPOnBoardIO;
 import frc.robot.commands.AutonomousDrive;
 import frc.robot.subsystems.XRPDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,16 +23,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final XRPDrivetrain m_xrpDrivetrain = new XRPDrivetrain();
-
+  private final XRPOnBoardIO m_onboardIO = new XRPOnBoardIO();
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    // Setup SmartDashboard options
-    m_chooser.addOption("Auto Routine Time", new AutonomousDrive(m_xrpDrivetrain));
-    SmartDashboard.putData(m_chooser);
   }
 
   /**
@@ -38,5 +38,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    Trigger userButton = new Trigger(m_onboardIO::getUserButtonPressed);
+    userButton
+        .onTrue(new AutonomousDrive(m_xrpDrivetrain));
+  }
 }
